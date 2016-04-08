@@ -169,7 +169,7 @@ module RailsAdminImport
       end
     end
 
-    def find_or_create_object(record, update)
+    def import_many_association_data(record, update)
       field_names = import_model.model_fields.map(&:name)
       new_attrs = record.select do |field_name, value|
         field_names.include?(field_name) && !value.blank?
@@ -211,6 +211,8 @@ module RailsAdminImport
             associated = values.map { |value| import_model.associated_object(field, mapping_key, value) }
             object.send "#{field.name}=", associated
           end
+          p values
+          adajdkajsk
         end
       end
     end
