@@ -72,6 +72,8 @@ module RailsAdminImport
       object = find_or_create_object(record, update_lookup)
       action = object.new_record? ? :create : :update
 
+      perform_model_callback(object, :before_import_save_1, record)
+
       begin
         import_single_association_data(object, record)
         import_many_association_data(object, record)
@@ -211,8 +213,6 @@ module RailsAdminImport
             associated = values.map { |value| import_model.associated_object(field, mapping_key, value) }
             object.send "#{field.name}=", associated
           end
-          p values
-          adajdkajsk
         end
       end
     end
